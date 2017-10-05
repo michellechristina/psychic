@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Psychic!</h1>
+
+    <h2> Guess what letter I'm thinking</h2>
+    <p>Press a key to start playing!</p>
+
+    <div id="incorrect"></div>
+    <div id="answers"></div>
+
+
+
+    <script>
+        var str = "abcdefghijklmnopqrstuvwxyz";
+        // this makes each letter its' own index
+        var abcArray = str.split("");
+        //this makes each letter uppercase and its own index
+        // var abcUpperArray = str.toUpperCase().split("");
+        console.log(abcArray);
+
+        //this pulls out a random letter from the abcArray to use for the anwser
+        var anwser = abcArray[Math.floor(Math.random() * str.length)];
+
+        console.log("anwser:" + anwser);
+
+        // how many games won and lost
+        var wins = 0;
+        var losses = 0;
+
+        // how many guesses left
+        var guessCount = 10;
+
+        // this is an empty array to store incorrect letters
+        var incorrectLetters = [];
+
+        var guess = prompt("what is your guess?");
+
+        //go into html, get element by id (div class= incorrect) then make a js variable
+        var incorrect = document.getElementById("incorrect");
+        console.log("incorrect " + incorrect);
+        console.log(incorrect);
+
+        //grocery.length is 3 array items. as long as i is less than length of array, it will keep looping. logs out 3 strings apples are delicious, etc.
+        for (var i = 0; i < abcArray.length; i++) {
+            console.log(abcArray[i]);
+            if (anwser == guess) {
+                alert("win");
+                break;
+            } else {
+                guess = prompt("try again");
+            }
+        }
+
+    </script>
+</body>
+
+</html>

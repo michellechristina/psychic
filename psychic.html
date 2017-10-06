@@ -16,6 +16,9 @@
 
     <div id="incorrect"></div>
     <div id="answers"></div>
+    <div id="guesses"></div>
+    <div id="message"></div>
+    <div id="guesscounter"></div>
 
 
 
@@ -42,23 +45,61 @@
         // this is an empty array to store incorrect letters
         var incorrectLetters = [];
 
-        var guess = prompt("what is your guess?");
+        // var guess = prompt("what is your guess?");
 
         //go into html, get element by id (div class= incorrect) then make a js variable
         var incorrect = document.getElementById("incorrect");
         console.log("incorrect " + incorrect);
         console.log(incorrect);
 
-        //grocery.length is 3 array items. as long as i is less than length of array, it will keep looping. logs out 3 strings apples are delicious, etc.
-        for (var i = 0; i < abcArray.length; i++) {
-            console.log(abcArray[i]);
+
+        var guesses= document.getElementById("guesses");
+        var message= document.getElementById("message");
+        var guesscounter= document.getElementById("guesscounter");
+        
+
+            // // Determines which key was pressed.
+            // var userGuess = event.key;
+   // This function is run whenever the user presses a key.
+   guesscounter.innerHTML="Number of guesses left: " +guessCount;
+
+   if (guessCount === 0) {
+    message.innerHTML="game over, you loose";
+   }
+   else {
+
+   }
+
+       
+        document.onkeyup = function (event) {
+            var guess = event.key;
+            console.log("keyup works");
+        
+            console.log(abcArray);
+            // if (abcArray.includes(guess))
             if (anwser == guess) {
-                alert("win");
-                break;
+                // alert("win");
+                message.innerHTML="win";
             } else {
-                guess = prompt("try again");
+                // guess = alert("try again");
+                message.innerHTML="try again";
+                incorrectLetters.push(guess);
+                guesses.innerHTML=incorrectLetters;
+                guessCount--;
+                guesscounter.innerHTML="Number of guesses left " +guessCount;
+
             }
         }
+        //grocery.length is 3 array items. as long as i is less than length of array, it will keep looping. logs out 3 strings apples are delicious, etc.
+        // for (var i = 0; i < abcArray.length; i++) {
+        //     console.log(abcArray[i]);
+        //     if (anwser == guess) {
+        //         alert("win");
+        //         break;
+        //     } else {
+        //         guess = prompt("try again");
+        //     }
+        // }
 
     </script>
 </body>

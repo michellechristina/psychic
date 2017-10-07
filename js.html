@@ -1,143 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Psychic</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Psychic</title>
 
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
-    <!-- We need to bring in the bootstrap CSS -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous"> 
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+  <!-- We need to bring in the bootstrap CSS -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <link href="https://fonts.googleapis.com/css?family=Sail" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Sail" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
 </head>
+
 <body>
 
 
-        <div class="wrapper">
-                <div class="col-md-3">
-                </div>
-                  <div class="col-md-6 text-center">
-                    <header>
-                    <h1>The Psychic Game</h1>
-                    </header>
-                    <div>
-                      <h3>Guess the letter the computer has picked. Any letter from A - Z</h3>
-                      <br>
-                      <h2>Are you Psychic?</h2>
-                    </div>
-               
-
-                    <div id="scoreboard">
-                      <ul class="list-group">
-                        <li class="list-group-item"><p id="wins">Wins: </p></li>
-                        <li class="list-group-item"><p id="losses">Losses: </p></li>
-                        <li class="list-group-item"><p id="guessLeft">Guesses Left: </p></li>
-                        <li class="list-group-item"><p id="letter">Guessed Letters: </p></li>
-                      </ul>  
-                    </div>
-                  </div>
-              </div> 
-                
+  <div class="wrapper">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6 text-center">
+      <header>
+        <h1>The Psychic Game</h1>
+      </header>
+      <div>
+        <h3>Guess the letter! Click any letter on your keyboard!</h3>
+      </div>
 
 
-
-    
-<script>
-
-//alphabet
-
-var str = "abcdefghijklmnopqrstuvwxyz";
-        // this makes each letter its' own index
-        var abcArray = str.split("");
-        //this makes each letter uppercase and its own index
-        console.log(abcArray);
-
-        //this pulls out a random letter from the abcArray to use for the anwser
-        var anwser = abcArray[Math.floor(Math.random() * str.length)];
-
-//Wins and losses for game
-var wins = 0;
-var losses = 0;
-//how many guesses you start with
-var guesses = 10;
-//how many guesses you have left
-var guessCount = 10;
-//an empty array to stick your guessed letters in
-var incorrectLetters = [];
-
-var letterToGuess = null;
+      <div id="scoreboard">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <p>Wins: <span id="wins"></span></p>
+          </li>
+          <li class="list-group-item">
+            <p>Losses: <span id="losses"></span> </p>
+          </li>
+          <li class="list-group-item">
+            <p>Guesses Left: <span id="guessLeft"></span> </p>
+          </li>
+          <li class="list-group-item">
+            <p>Guessed Letters: <span id="letter"></span> </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
 
-// get random letter
-var updateLetterToGuess = function() {
-  letterToGuess = anwser[Math.floor(Math.random() * anwser.length)];
-};
-
-//Allows the user 10 guesses
-var updateguessCount = function() {
-  // get the HTML element and setting it equal to the guessCount
-  document.querySelector('#guessLeft').innerHTML = "Guesses left: " + guessCount;
-};
-
-// Takes the guesses that have been tried & displays as letters separated by commas. 
-var updateGuessesSoFar = function() {
-  document.querySelector('#letter').innerHTML = "Your Guesses so far: " + incorrectLetters.join(', ');
-};
-// resets everything back to starting point
-var start = function() {
-  guessCount = 10;
-  incorrectLetters = [];
-  updateLetterToGuess();
-  updateguessCount();
-  updateGuessesSoFar();
-}
-
-// apparently this works to kick off the game for the first time too.
-start();
 
 
-//determines which key is being clicked, and subtracts 1 from guess counter.
-document.onkeyup = function(event) {
-    guessCount--;
-  var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
-  //pushes the user guess (key clicked) into the incorrect letters array
-  incorrectLetters.push(userGuess);
-  updateguessCount();
-  updateGuessesSoFar();
+  <script>
+    var game = {
+      abcArray: "abcdefghijklmnopqrstuvwxyz".split(""),
+      anwser: "",
+      wins: 0,
+      losses: 0,
+      guesses: 0,
+      guessCount: 0,
+      incorrectLetters: [],
+      updateAnwser: function () {
+        this.anwser = this.abcArray[Math.floor(Math.random() * this.abcArray.length)];
+      },
+      updateguessCount: function () {
+        document.querySelector('#guessLeft').innerHTML = this.guessCount;
+      },
+      updateGuessesSoFar: function () {
+        document.querySelector('#letter').innerHTML = this.incorrectLetters.join(', ');
+      },
+      start: function () {
+        this.guessCount = 10;
+        this.incorrectLetters = [];
+        this.updateguessCount();
+        this.updateGuessesSoFar();
+        this.updateAnwser();
+      }
+    }
 
-        if (guessCount > 0){
-            if (userGuess == letterToGuess){
-                wins++;
-                document.querySelector('#wins').innerHTML = "Wins: " + wins;
-                alert("Correct! You Win!");
-                start();
-            }
-        }else if(guessCount == 0){
-            // Then we will loss and we'll update the html to display the loss 
-            losses++;
-            document.querySelector('#losses').innerHTML = "Losses: " + losses;
-            alert("Game over! Try again!");
-            // Then we'll call the reset. 
-            start();
+    // var str = "abcdefghijklmnopqrstuvwxyz";
+    // // this makes each letter its' own index
+    // var abcArray = str.split("");
+    // //this makes each letter uppercase and its own index
+    // console.log(abcArray);
+
+    // //this pulls out a random letter from the abcArray to use for the anwser
+    // var anwser = abcArray[Math.floor(Math.random() * str.length)];
+
+    // //Wins and losses for game
+    // var wins = 0;
+    // var losses = 0;
+    // //how many guesses you start with
+    // var guesses = 10;
+    // //how many guesses you have left
+    // var guessCount = 10;
+    // //an empty array to stick your guessed letters in
+    // var incorrectLetters = [];
+
+    // var letterToGuess = null;
+
+
+    // // get random letter
+    // var updateLetterToGuess = function () {
+    //   letterToGuess = anwser[Math.floor(Math.random() * anwser.length)];
+    // };
+
+    // //Allows the user 10 guesses
+    // var updateguessCount = function () {
+    //   // get the HTML element and setting it equal to the guessCount
+    //   document.querySelector('#guessLeft').innerHTML = "Guesses left: " + guessCount;
+    // };
+
+    // // Takes the guesses that have been tried & displays as letters separated by commas. 
+    // var updateGuessesSoFar = function () {
+    //   document.querySelector('#letter').innerHTML = "Your Guesses so far: " + incorrectLetters.join(', ');
+    // };
+    // // resets everything back to starting point
+    // var start = function () {
+    //   guessCount = 10;
+    //   incorrectLetters = [];
+    //   updateLetterToGuess();
+    //   updateguessCount();
+    //   updateGuessesSoFar();
+    // }
+
+    // this works to kick off the game for the first time too.
+    game.start();
+
+
+
+    //determines which key is being clicked, and subtracts 1 from guess counter.
+    document.onkeyup = function (event) {
+      game.guessCount--;
+      var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+      //pushes the user guess (key clicked) into the incorrect letters array
+      game.incorrectLetters.push(userGuess);
+      game.updateguessCount();
+      game.updateGuessesSoFar();
+
+      if (game.guessCount > 0) {
+        if (userGuess == game.anwser) {
+          game.wins++;
+          document.querySelector('#wins').innerHTML = game.wins;
+          alert("Correct! You Win!");
+          game.start();
         }
-};
-
-</script>
+      } else if (game.guessCount == 0) {
+        // Then we will loss and we'll update the html to display the loss 
+        game.losses++;
+        document.querySelector('#losses').innerHTML = game.losses;
+        alert("Game over! Try again!");
+        // makes the game start over & resets counters. 
+        game.start();
+      }
+    };
+  </script>
 </body>
-</html>
 
+</html>
